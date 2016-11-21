@@ -1,0 +1,30 @@
+{
+  "name": "sigh-proc",
+  "dependencies": {
+    "sigh-core": "^0.12",
+    "tree-kill": "^1.1.0"
+  },
+  "description": "sigh plugin for running processes.",
+  "directories": {},
+  "keywords": [
+    "build",
+    "assets",
+    "pipeline",
+    "sigh-plugin"
+  ],
+  "license": "Xnet",
+  "version": "0.0.1",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unlight/sigh-proc.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/unlight/sigh-proc/issues"
+  },
+  "homepage": "https://github.com/unlight/sigh-proc#readme"
+}
