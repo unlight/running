@@ -13,11 +13,10 @@
     "sigh-plugin"
   ],
   "license": "Xnet",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "index.js",
   "devDependencies": {},
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/unlight/sigh-proc.git"
