@@ -7,33 +7,36 @@ var treeKill = require('tree-kill');
 
 module.exports = function(op, cmd) {
     var proc = null;
-    if (!op.watch) return op.stream;
+    if (!op.watch) {
+        return op.stream;
+    }
     var splitCmd = cmd.split(' ');
 
     var kill = function(proc) {
+        if (!proc) {
+            return Promise.resolve();
+        }
         return new Promise(function(resolve, reject) {
             treeKill(proc.pid, 'SIGKILL', function(err) {
-                if (err) return reject(err);
-                resolve();
+                (err) ? reject(err) : resolve();
             });
         });
     };
 
     var spawnProcess = function(resolve, reject) {
         log('spawn process `%s`', cmd);
-        (proc ? kill(proc) : Promise.resolve())
-            .then(function() {
-                proc = spawn(splitCmd[0], splitCmd.slice(1), {
-                    stdio: [process.stdin, 'pipe', process.stderr]
-                });
-                proc.stdout.pipe(process.stdout);
-                proc.stdout.on('data', function(line) {
-                    if (resolve) {
-                        resolve();
-                        resolve = null;
-                    }
-                });
+        kill(proc).then(function() {
+            proc = spawn(splitCmd[0], splitCmd.slice(1), {
+                stdio: [process.stdin, 'pipe', process.stderr]
             });
+            proc.stdout.pipe(process.stdout);
+            proc.stdout.on('data', function(line) {
+                if (resolve) {
+                    resolve();
+                    resolve = null;
+                }
+            });
+        });
     };
 
     return op.stream.flatMap(function(events) {
